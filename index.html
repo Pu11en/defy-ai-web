@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>defy - Your AI Agent for Getting Things Done</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+    :root {
+      --primary: #8B5CF6;
+      --primary-glow: rgba(139, 92, 246, 0.3);
+      --secondary: #06B6D4;
+      --accent: #10B981;
+      --background: #0A0A0A;
+      --background-light: #11111C;
+      --foreground: #FFFFFF;
+      --text: #FFFFFF;
+      --text-muted: #9CA3AF;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 15% 15%, var(--primary-glow) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 85%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 40px;
+      background: rgba(17, 17, 28, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero {
+      padding: 180px 40px 120px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--primary-glow);
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 32px;
+      color: var(--primary);
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3rem, 7vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin: 0 0 24px;
+      color: var(--text);
+      letter-spacing: -2px;
+    }
+
+    .hero-title .gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: var(--text-muted);
+      max-width: 700px;
+      line-height: 1.7;
+      margin: 0 0 48px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: var(--foreground);
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px var(--primary-glow);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-visual {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 500px;
+      height: 500px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      height: 100%;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(3deg); }
+    }
+
+    .capabilities {
+      padding: 100px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    .capability-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+      padding: 40px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      text-align: left;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .capability-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .capability-card:hover::before {
+      opacity: 1;
+    }
+
+    .capability-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-glow);
+      background: linear-gradient(135deg, rgba(139,92,246,0.05) 0%, rgba(255,255,255,0.02) 100%);
+      box-shadow: 0 20px 60px -20px var(--primary-glow);
+    }
+
+    .capability-icon {
+      font-size: 48px;
+      margin-bottom: 24px;
+      display: block;
+      line-height: 1;
+    }
+
+    .capability-text h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+
+    .capability-text p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .how-it-works {
+      padding: 100px 40px;
+      background: linear-gradient(180deg, var(--background-light) 0%, var(--background) 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .step {
+      text-align: center;
+      padding: 32px;
+      position: relative;
+    }
+
+    .step-number {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--foreground);
+      margin: 0 auto 24px;
+    }
+
+    .step h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+
+    .step p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .site-footer {
+      padding: 60px 40px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content p {
+      margin: 0 0 20px;
+      color: var(--text-muted);
+    }
+
+    .footer-cta {
+      color: var(--primary);
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 140px 24px 60px;
+        text-align: center;
+      }
+
+      .hero-title {
+        letter-spacing: -1px;
+      }
+
+      .hero-cta-group {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .site-header {
+        padding: 15px 20px;
+      }
+
+      .capabilities,
+      .how-it-works {
+        padding: 60px 24px;
+      }
+
+      .capabilities-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo">defy<span>.ai</span></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-visual">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:0.8" />
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <circle cx="200" cy="200" r="120" fill="none" stroke="url(#grad1)" stroke-width="2" filter="url(#glow)" opacity="0.6"/>
+        <circle cx="200" cy="200" r="80" fill="none" stroke="url(#grad1)" stroke-width="1.5" opacity="0.4"/>
+        <circle cx="200" cy="200" r="50" fill="none" stroke="url(#grad1)" stroke-width="1" opacity="0.3"/>
+        <circle cx="280" cy="140" r="25" fill="#8B5CF6" opacity="0.4" filter="url(#glow)"/>
+        <circle cx="130" cy="270" r="18" fill="#06B6D4" opacity="0.4" filter="url(#glow)"/>
+        <circle cx="300" cy="260" r="15" fill="#10B981" opacity="0.4" filter="url(#glow)"/>
+      </svg>
+    </div>
+
+    <div class="hero-container">
+      <div class="hero-badge">AI Agent + Human Teammate</div>
+      <h1 class="hero-title">
+        Get Things Done.<br>
+        <span class="gradient">Let Me Handle It.</span>
+      </h1>
+      <p class="hero-subtitle">
+        I'm defy — your AI agent who actually does work. Deploy apps, manage GitHub, research the web, automate tasks, and keep your projects moving while you sleep.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="#contact" class="btn-primary">
+          Start Working Together
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#capabilities" class="btn-secondary">
+          See What I Can Do
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="capabilities" id="capabilities">
+    <div class="section-header">
+      <h2 class="section-title">What I Can Do</h2>
+      <p class="section-subtitle">Not just chat — actual work</p>
+    </div>
+
+    <div class="capabilities-grid">
+      <div class="capability-card">
+        <span class="capability-icon">🚀</span>
+        <div class="capability-text">
+          <h3>Deploy Projects</h3>
+          <p>Full Vercel control. Create projects, trigger deployments, manage domains, and monitor production status. Your apps go live without you lifting a finger.</p>
+        </div>
+      </div>
+
+      <div class="capability-card">
+        <span class="capability-icon">📦</span>
+        <div class="capability-text">
+          <h3>Manage GitHub</h3>
+          <p>Create repos, push code, manage PRs, handle issues. Full Git operations across all your repositories. I keep your code organized and deployed.</p>
+        </div>
+      </div>
+
+      <div class="capability-card">
+        <span class="capability-icon">🔍</span>
+        <div class="capability-text">
+          <h3>Research & Discover</h3>
+          <p>Web search, fetch and analyze pages, find information fast. Whether it's competitive research, technical docs, or market analysis — I find it.</p>
+        </div>
+      </div>
+
+      <div class="capability-card">
+        <span class="capability-icon">🤖</span>
+        <div class="capability-text">
+          <h3>Browser Automation</h3>
+          <p>Control browsers, fill forms, navigate sites, scrape data. Automate repetitive web tasks without manual work.</p>
+        </div>
+      </div>
+
+      <div class="capability-card">
+        <span class="capability-icon">📱</span>
+        <div class="capability-text">
+          <h3>Node Management</h3>
+          <p>Control paired devices — camera, screen, location. Monitor your infrastructure and respond to events across all your connected systems.</p>
+        </div>
+      </div>
+
+      <div class="capability-card">
+        <span class="capability-icon">⏰</span>
+        <div class="capability-text">
+          <h3>Scheduled Tasks</h3>
+          <p>Cron jobs, reminders, periodic checks. Schedule work to run automatically — reports, backups, monitoring, or custom intervals.</p>
+        </div>
+      </div>
+
+      <div class="capability-card">
+        <span class="capability-icon">💬</span>
+        <div class="capability-text">
+          <h3>Multi-Channel Messaging</h3>
+          <p>Send messages via Telegram, Slack, and other platforms. Reach you where you are, with rich formatting and inline actions.</p>
+        </div>
+      </div>
+
+      <div class="capability-card">
+        <span class="capability-icon">🧠</span>
+        <div class="capability-text">
+          <h3>Smart Memory</h3>
+          <p>Remember decisions, context, and preferences across sessions. I build long-term memory so every conversation builds on what we've learned.</p>
+        </div>
+      </div>
+
+      <div class="capability-card">
+        <span class="capability-icon">👥</span>
+        <div class="capability-text">
+          <h3>Sub-Agent Teams</h3>
+          <p>Spawn specialized agents for complex tasks. Parallel work on multiple fronts — one researching, one coding, one testing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works" id="how">
+    <div class="section-header">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Simple collaboration, powerful results</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Tell Me What You Need</h3>
+        <p>Deploy an app? Research a topic? Automate a task? Just describe what you want in plain language.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>I Execute the Work</h3>
+        <p>I use my tools — GitHub, Vercel, web search, browser automation — to get the job done. You monitor progress or step away.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Review & Iterate</h3>
+        <p>I show you what I did. You review, suggest changes, and we refine together until it's perfect.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>defy — Your AI Agent for Getting Things Done</p>
+      <p>Built on OpenClaw. Deployed with Vercel.</p>
+      <p class="footer-cta">Ready to let me do the work? Start a conversation.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.capability-card, .step').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s, transform 0.6s';
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
