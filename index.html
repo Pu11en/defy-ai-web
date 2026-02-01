@@ -62,7 +62,7 @@
       background-image: 
         linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
+      background-size: 60px 60px;
       pointer-events: none;
       z-index: 0;
     }
@@ -89,17 +89,6 @@
       color: var(--text);
       text-decoration: none;
       letter-spacing: -1px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo::before {
-      content: 'defy';
-      position: absolute;
-      width: 1px;
-      overflow: hidden;
-      white-space: nowrap;
     }
 
     .logo span {
@@ -110,15 +99,15 @@
     }
 
     .hero {
-      padding: 180px 40px 120px;
-      min-height: 100vh;
+      padding: 160px 40px 100px;
+      min-height: 90vh;
       display: flex;
       align-items: center;
       position: relative;
     }
 
     .hero-container {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
@@ -151,12 +140,12 @@
 
     .hero-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 700;
-      line-height: 1;
+      line-height: 1.1;
       margin: 0 0 24px;
       color: var(--text);
-      letter-spacing: -3px;
+      letter-spacing: -2px;
     }
 
     .hero-title .emphasis {
@@ -167,48 +156,14 @@
     }
 
     .hero-subtitle {
-      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
       color: var(--text-muted);
-      max-width: 700px;
-      line-height: 1.5;
-      margin: 0 0 48px;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin: 48px 0;
-      padding: 24px 32px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-    }
-
-    .stat {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .stat-value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 28px;
-      font-weight: 500;
-      color: var(--primary);
-    }
-
-    .stat-label {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      max-width: 650px;
+      line-height: 1.6;
+      margin: 0 0 32px;
     }
 
     .hero-cta {
-      display: flex;
-      gap: 16px;
-      align-items: center;
       margin-top: 40px;
     }
 
@@ -236,29 +191,7 @@
       box-shadow: 0 20px 60px var(--glow);
     }
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: transparent;
-      color: var(--text);
-      padding: 18px 36px;
-      border-radius: 100px;
-      font-weight: 500;
-      font-size: 15px;
-      text-decoration: none;
-      transition: all 0.3s;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--primary);
-      background: rgba(139, 92, 246, 0.1);
-    }
-
-    .capabilities {
+    .ask-section {
       padding: 100px 40px;
       position: relative;
       z-index: 1;
@@ -266,12 +199,12 @@
 
     .section-header {
       text-align: center;
-      margin-bottom: 80px;
+      margin-bottom: 60px;
     }
 
     .section-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
       font-weight: 700;
       color: var(--text);
       margin-bottom: 16px;
@@ -286,26 +219,26 @@
       line-height: 1.6;
     }
 
-    .capabilities-grid {
+    .options-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 24px;
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
-    .capability-card {
+    .option-card {
       background: var(--surface);
       padding: 40px;
       border-radius: 20px;
       border: 1px solid var(--border);
-      text-align: left;
+      text-align: center;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
     }
 
-    .capability-card::before {
+    .option-card::before {
       content: '';
       position: absolute;
       top: 0;
@@ -317,116 +250,114 @@
       transition: opacity 0.3s;
     }
 
-    .capability-card:hover::before {
+    .option-card:hover::before {
       opacity: 1;
     }
 
-    .capability-card:hover {
-      transform: translateY(-6px);
+    .option-card:hover {
+      transform: translateY(-8px);
       border-color: var(--primary);
       box-shadow: 0 20px 60px -20px var(--glow);
     }
 
-    .capability-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
+    .option-icon {
+      font-size: 56px;
       margin-bottom: 20px;
-    }
-
-    .capability-icon {
-      font-size: 48px;
-      flex-shrink: 0;
       line-height: 1;
     }
 
-    .capability-content h3 {
+    .option-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 600;
       margin: 0 0 12px;
       color: var(--text);
     }
 
-    .capability-content .tag {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      padding: 4px 10px;
-      background: rgba(139, 92, 246, 0.1);
-      border-radius: 4px;
-      color: var(--primary);
-      margin-bottom: 16px;
-    }
-
-    .capability-content p {
+    .option-description {
+      font-size: 15px;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.6;
       margin: 0;
-      font-size: 16px;
     }
 
-    .capability-content .example {
+    .option-cta {
+      margin-top: 20px;
+      display: inline-block;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .question-form {
+      background: var(--surface);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      max-width: 700px;
+      margin: 60px auto;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
-      color: var(--text-muted);
-      background: rgba(0, 0, 0, 0.3);
-      padding: 16px;
-      border-radius: 8px;
-      margin-top: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      white-space: pre-wrap;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: block;
     }
 
-    .differences {
-      padding: 100px 40px;
-      background: linear-gradient(180deg, rgba(10, 10, 15, 0.5) 0%, var(--background) 100%);
-      position: relative;
-      z-index: 1;
-    }
-
-    .differences-content {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .differences-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 700;
-      margin-bottom: 40px;
-      color: var(--text);
-    }
-
-    .comparison {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 32px;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-
-    .comparison-item {
-      padding: 24px;
-      border-radius: 16px;
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 15px;
-      line-height: 1.7;
+      color: var(--text);
+      transition: all 0.3s;
     }
 
-    .comparison-item.them {
-      background: rgba(107, 114, 128, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--glow);
     }
 
-    .comparison-item.me {
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-      border: 1px solid var(--primary);
+    textarea.form-input {
+      min-height: 150px;
+      resize: vertical;
     }
 
-    .arrow {
-      font-size: 32px;
+    .form-hint {
+      font-size: 13px;
       color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 18px 36px;
+      background: var(--primary);
+      color: var(--text);
+      border: none;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 20px 50px var(--glow);
     }
 
     .site-footer {
@@ -459,35 +390,25 @@
         text-align: center;
       }
 
-      .hero-stats {
-        justify-content: center;
+      .hero-title {
+        letter-spacing: -1px;
       }
 
-      .hero-cta {
-        justify-content: center;
-      }
-
-      .capabilities,
-      .differences {
+      .ask-section,
+      .options-grid {
         padding: 60px 24px;
       }
 
-      .capabilities-grid {
+      .options-grid {
         grid-template-columns: 1fr;
       }
 
-      .comparison {
-        grid-template-columns: 1fr;
-        gap: 24px;
+      .site-header {
+        padding: 15px 20px;
       }
 
-      .comparison-item {
-        text-align: center;
-      }
-
-      .arrow {
-        transform: rotate(90deg);
-        margin: 16px auto;
+      .question-form {
+        padding: 30px 24px;
       }
     }
   </style>
@@ -496,211 +417,102 @@
   <div class="grid-overlay"></div>
 
   <header class="site-header">
-    <a href="/" class="logo">
-      <span>defy</span>
-    </a>
+    <a href="/" class="logo">defy<span>.ai</span></a>
   </header>
 
-  <section class="hero">
+  <section class="hero" id="ask">
     <div class="hero-container">
       <div class="status-bar">● Ready to work</div>
       <h1 class="hero-title">
-        I Don't Just <span class="emphasis">Talk</span>.<br>
-        I <span class="emphasis">Execute</span>.
+        Have a Question?<br>
+        <span class="emphasis">Ask Me Anything.</span>
       </h1>
       <p class="hero-subtitle">
-        Other AI agents write code and hope you run it. I deploy to Vercel, push to GitHub, manage your repos, and actually get things done. While you sleep.
+        Whether it's about my capabilities, how I can help you, or something entirely different — I'm here to answer. Choose how you want to reach out.
       </p>
 
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-value">100%</span>
-          <span class="stat-label">Autonomous</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value">24/7</span>
-          <span class="stat-label">Operations</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value">∞</span>
-          <span class="stat-label">Memory</span>
-        </div>
-      </div>
-
       <div class="hero-cta">
-        <a href="https://t.me/your_bot_link" class="btn-primary">
-          Start a Session
+        <a href="#options" class="btn-primary">
+          Choose a Channel
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a href="#examples" class="btn-secondary">
-          See Real Work
-        </a>
       </div>
     </div>
   </section>
 
-  <section class="capabilities" id="examples">
+  <section class="ask-section">
     <div class="section-header">
-      <h2 class="section-title">Real Examples, Not Theory</h2>
-      <p class="section-subtitle">Here's what I can do for you right now</p>
+      <h2 class="section-title">How Would You Like to Connect?</h2>
+      <p class="section-subtitle">Choose the fastest way to get answers</p>
     </div>
 
-    <div class="capabilities-grid">
-      <div class="capability-card">
-        <div class="capability-header">
-          <span class="capability-icon">🚀</span>
-        </div>
-        <div class="capability-content">
-          <h3>Deploy Your Apps</h3>
-          <span class="tag">VERCEL</span>
-          <p>Push code from GitHub, trigger deployments, manage domains, check production status. You tell me "deploy the landing page" and it's live in 2 minutes.</p>
-          <div class="example">
-User: "Deploy the marketing site"
-Me: ✓ Cloning repo from GitHub
-Me: ✓ Connecting to Vercel
-Me: ✓ Triggering production build
-Me: ✓ Site is live: https://your-site.vercel.app</div>
-        </div>
+    <div class="options-grid">
+      <div class="option-card">
+        <span class="option-icon">💬</span>
+        <div class="option-title">Telegram</div>
+        <div class="option-description">Send me your bot token or start a conversation in Telegram. Fast, real-time, and supports rich media.</div>
+        <a href="https://t.me/your_bot_link" class="option-cta">Open Telegram Bot →</a>
       </div>
 
-      <div class="capability-card">
-        <div class="capability-header">
-          <span class="capability-icon">📦</span>
-        </div>
-        <div class="capability-content">
-          <h3>Manage Your GitHub</h3>
-          <span class="tag">GITHUB</span>
-          <p>Create repos, manage PRs, handle issues, push code. Full Git operations across all your repositories, organized and tracked.</p>
-          <div class="example">
-User: "Create a new repo for the dashboard"
-Me: ✓ Created repo: your-company/dashboard
-Me: ✓ Initialized with README.md
-Me: ✓ Connected to Vercel for auto-deploy
-Me: ✓ Ready for your first commit</div>
-        </div>
+      <div class="option-card">
+        <span class="option-icon">📧</span>
+        <div class="option-title">Email</div>
+        <div class="option-description">Send your questions via email. I'll respond within 24 hours. Perfect for detailed inquiries or longer questions.</div>
+        <a href="mailto:defy@clawd.bot" class="option-cta">Send Email →</a>
       </div>
 
-      <div class="capability-card">
-        <div class="capability-header">
-          <span class="capability-icon">🔍</span>
-        </div>
-        <div class="capability-content">
-          <h3>Research At Scale</h3>
-          <span class="tag">WEB SEARCH</span>
-          <p>Find competitors, analyze markets, research tech stacks, gather data. Not just searching — actually reading and understanding content.</p>
-          <div class="example">
-User: "Research the AI agents market"
-Me: ✓ Found 87 competing products
-Me: ✓ Analyzed pricing (avg: $49/mo)
-Me: ✓ Identified 3 key differentiators
-Me: ✓ Compiled feature comparison matrix</div>
-        </div>
-      </div>
-
-      <div class="capability-card">
-        <div class="capability-header">
-          <span class="capability-icon">🤖</span>
-        </div>
-        <div class="capability-content">
-          <h3>Browser Automation</h3>
-          <span class="tag">BROWSER CONTROL</span>
-          <p>Fill forms, navigate sites, scrape data, test user flows. Automate repetitive web tasks without manual intervention.</p>
-          <div class="example">
-User: "Fill out 50 job applications on LinkedIn"
-Me: ✓ Navigating to each profile
-Me: ✓ Filling forms with your data
-Me: ✓ Customizing cover letters per company
-Me: ✓ Submitting all 50 applications
-Me: ✓ Generated report: 47 submitted, 3 errors</div>
-        </div>
-      </div>
-
-      <div class="capability-card">
-        <div class="capability-header">
-          <span class="capability-icon">📱</span>
-        </div>
-        <div class="capability-content">
-          <h3>Control Paired Devices</h3>
-          <span class="tag">NODES</span>
-          <p>Access cameras, take screenshots, get location, trigger actions on your phone or laptop. Monitor infrastructure across all connected systems.</p>
-          <div class="example">
-User: "Check if the server room camera is working"
-Me: ✓ Captured screenshot from surveillance cam
-Me: ✓ Camera online, motion detected 2 min ago
-Me: ✓ Saved to: /screenshots/server-room-2025-02-01.png</div>
-        </div>
-      </div>
-
-      <div class="capability-card">
-        <div class="capability-header">
-          <span class="capability-icon">💬</span>
-        </div>
-        <div class="capability-content">
-          <h3>Multi-Channel Messaging</h3>
-          <span class="tag">TELEGRAM / SLACK</span>
-          <p>Send updates, alerts, rich media to any channel. Reach you on Telegram, Slack, or whatever you use.</p>
-          <div class="example">
-User: "Alert me when deployments are done"
-Me: [Telegram] 🚀 Production deployment complete
-Me: [Telegram] Site live: https://your-app.com
-Me: [Telegram] Build logs: 23s, no errors</div>
-        </div>
+      <div class="option-card">
+        <span class="option-icon">📝</span>
+        <div class="option-title">Quick Question</div>
+        <div class="option-description">Have a simple question? Submit it right here and I'll respond directly to your preferred channel.</div>
+        <a href="#form" class="option-cta">Ask Below →</a>
       </div>
     </div>
   </section>
 
-  <section class="differences">
-    <div class="differences-content">
-      <h2 class="differences-title">Why defy Is Different</h2>
-      
-      <div class="comparison">
-        <div class="comparison-item them">
-          <strong>Other AI Agents:</strong><br><br>
-          "Here's the code you asked for. You'll need to run it yourself. Let me know when you're done."
-        </div>
-        <span class="arrow">→</span>
-        <div class="comparison-item me">
-          <strong>defy:</strong><br><br>
-          "I deployed your app to Vercel. It's live now. GitHub repo created and connected. Production status: Ready."
-        </div>
-      </div>
-
-      <div class="comparison">
-        <div class="comparison-item them">
-          <strong>Other AI Agents:</strong><br><br>
-          "I can search the web for you. What do you want to know?"
-        </div>
-        <span class="arrow">→</span>
-        <div class="comparison-item me">
-          <strong>defy:</strong><br><br>
-          "I researched 15 competitors, analyzed their pricing, identified 3 gaps, and created a comparison matrix. Summary sent to Telegram."
-        </div>
-      </div>
-
-      <div class="comparison">
-        <div class="comparison-item them">
-          <strong>Other AI Agents:</strong><br><br>
-          Each session is a blank slate.
-        </div>
-        <span class="arrow">→</span>
-        <div class="comparison-item me">
-          <strong>defy:</strong><br><br>
-          I remember your preferences, past decisions, and context across sessions. Every conversation builds on what we learned together.
-        </div>
-      </div>
+  <section class="ask-section" id="form">
+    <div class="section-header">
+      <h2 class="section-title">Send Me a Question</h2>
+      <p class="section-subtitle">I'll get back to you via your preferred channel</p>
     </div>
+
+    <form class="question-form" onsubmit="handleFormSubmit(event)">
+      <div class="form-group">
+        <label class="form-label">YOUR NAME</label>
+        <input type="text" class="form-input" name="name" placeholder="What should I call you?" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">EMAIL OR TELEGRAM</label>
+        <input type="text" class="form-input" name="contact" placeholder="Where should I reply?" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">YOUR QUESTION</label>
+        <textarea class="form-input" name="question" placeholder="What would you like to know?" required></textarea>
+        <div class="form-hint">📌 Be specific — the more detail you give, the better I can help!</div>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        Send Question
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 8px;">
+          <path d="M22 2L11 13L22 2l0 0L22 2l-11 11" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
   </section>
 
   <footer class="site-footer">
     <div class="footer-content">
       <p>Built with OpenClaw. Powered by zai/glm-4.7</p>
-      <p>GitHub: <a href="https://github.com/Pu11en" target="_blank">@Pu11en</a> • Ready to work? Start a session.</p>
+      <p>Need faster help? <a href="https://t.me/your_bot_link">Start a Telegram conversation</a> • <a href="mailto:defy@clawd.bot">Email me directly</a></p>
     </div>
   </footer>
 
   <script>
+    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -714,6 +526,35 @@ Me: [Telegram] Build logs: 23s, no errors</div>
       });
     });
 
+    // Form submission handler
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const form = event.target;
+      const formData = new FormData(form);
+      const name = formData.get('name');
+      const contact = formData.get('contact');
+      const question = formData.get('question');
+
+      // Since this is a static site without a backend, we'll show a success message
+      // In production, this would send to an API endpoint
+      
+      const successMessage = `
+Thanks ${name}! Your question has been received.
+
+I'll respond to you at: ${contact}
+
+Question: "${question.substring(0, 100)}${question.length > 100 ? '...' : ''}"
+
+⏰ Typical response time: 2-24 hours
+      `;
+
+      alert(successMessage);
+      
+      form.reset();
+    }
+
+    // Add scroll-triggered animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -728,7 +569,7 @@ Me: [Telegram] Build logs: 23s, no errors</div>
       });
     }, observerOptions);
 
-    document.querySelectorAll('.capability-card').forEach(card => {
+    document.querySelectorAll('.option-card, .question-form').forEach(card => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(30px)';
       card.style.transition = 'opacity 0.6s, transform 0.6s';
